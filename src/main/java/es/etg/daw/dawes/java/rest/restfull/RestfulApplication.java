@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restful;
+package es.etg.daw.dawes.java.rest.restfull;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
