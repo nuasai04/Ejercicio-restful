@@ -1,1 +1,0 @@
-002 es para validar datos de entrada
