@@ -11,47 +11,52 @@ import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.CreateP
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.DeleteProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.EditProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.FindProductoUseCase;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.ProductoRepositoryMockImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class ProductoConfig {
 
+
+    private final ProductoRepository productoRepository;
+    
     @Bean
     public CreateProductoUseCase createProductoUseCase() {
-        return new CreateProductoUseCase();
+        return new CreateProductoUseCase(productoRepository);
     }
-
     @Bean
-    public CreateProductoService createProductoService() {
+    public CreateProductoService createProductoService(){
         return new CreateProductoService(createProductoUseCase());
     }
 
     @Bean
-    public FindProductoUseCase findProductoUseCase() {
-        return new FindProductoUseCase();
+    public FindProductoUseCase findProductoUseCase(){
+        return new FindProductoUseCase(productoRepository);
     }
 
     @Bean
-    public FindProductoService findProductoService() {
+    public FindProductoService findProductoService(){
         return new FindProductoService(findProductoUseCase());
     }
-     @Bean
-    public DeleteProductoUseCase deleteProductoUseCase() {
-        return new DeleteProductoUseCase();
-    }
 
     @Bean
-    public DeleteProductoService deleteProductoService() {
+    public DeleteProductoUseCase deleteProductoUseCase(){
+        return new DeleteProductoUseCase(productoRepository);
+    }
+    @Bean
+    public DeleteProductoService deleteProductoService(){
         return new DeleteProductoService(deleteProductoUseCase());
     }
-     @Bean
-    public EditProductoUseCase editProductoUseCase() {
-        return new EditProductoUseCase();
-    }
 
     @Bean
-    public EditProductoService editProductoService() {
+    public EditProductoUseCase editProductoUseCase() {
+        return new EditProductoUseCase(productoRepository);
+    }
+    
+    @Bean
+    public EditProductoService editProductoService(){
         return new EditProductoService(editProductoUseCase());
     }
 }
