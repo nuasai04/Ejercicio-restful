@@ -51,18 +51,20 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ProductoMapper.toResponse(producto)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
     }
 
-    //Recogemos la versión el properties
+    // Recogemos la versión el properties
     @Value("${api.version}")
     private String apiVersion;
 
     @GetMapping 
-    public List<ProductoResponse> allProductos(){
-        if("1.0".equals(apiVersion)){
+    public List<ProductoResponse> allProductos() {
+        if(true) throw new NullPointerException();
+        if ("1.0".equals(apiVersion)) {
             return findProductoService.findAll()
-                    .stream() //Convierte la lista en un flujo
-                    .map(ProductoMapper::toResponse) //Mapeamos/Convertimos cada elemento del flujo (Producto) en un objeto de Respuesta (ProductoResponse)
-                    .toList(); //Lo devuelve como una lista.
-        }else{
+                    .stream() // Convierte la lista en un flujo
+                    .map(ProductoMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un
+                                                     // objeto de Respuesta (ProductoResponse)
+                    .toList(); // Lo devuelve como una lista.
+        } else {
             // Lanzamos una excepción con el error
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Versión del API incorrecta");
         }
