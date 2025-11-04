@@ -13,9 +13,9 @@ public class EditCategoriaUseCase {
     
     public Categoria update(EditCategoriaCommand command){
         return categoriaRepository.getById(command.id())
-                .map(p -> {  //Actualizamos los atributos del objeto
-                    p.setNombre(command.nombre());
-                    return categoriaRepository.save(p);})
+                .map(c -> {  //Actualizamos los atributos del objeto
+                    c.setNombre(command.nombre());
+                    return categoriaRepository.save(c);})
                 .orElseThrow(() -> new CategoriaNotFoundException(command.id().getValue()));
 
     }
