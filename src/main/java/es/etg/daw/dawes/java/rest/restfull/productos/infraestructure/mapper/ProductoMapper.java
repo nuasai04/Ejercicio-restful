@@ -1,8 +1,9 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.CreateProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.EditProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.CreateProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoResponse;
 
@@ -19,7 +20,7 @@ public class ProductoMapper {
 									producto.getCreatedAt());
 	}
 
-	public static EditProductoCommand toCommand(int id, ProductoRequest productoRequest){
+	public static EditProductoCommand toCommand(ProductoId id, ProductoRequest productoRequest){
 		return new EditProductoCommand(id, productoRequest.nombre(), productoRequest.precio());
 	}
 	

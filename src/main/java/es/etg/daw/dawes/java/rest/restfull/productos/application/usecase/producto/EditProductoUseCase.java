@@ -1,7 +1,7 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase;
+package es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.producto;
 
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.EditProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.EditProductoCommand;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.error.ProductoNotFoundException;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
@@ -19,7 +19,7 @@ public class EditProductoUseCase {
                     p.setNombre(command.nombre());
                     p.setPrecio(command.precio());
                     return productoRepository.save(p);})
-                .orElseThrow(() -> new ProductoNotFoundException(command.id()));
+                .orElseThrow(() -> new ProductoNotFoundException(command.id().getValue()));
 
     }
 

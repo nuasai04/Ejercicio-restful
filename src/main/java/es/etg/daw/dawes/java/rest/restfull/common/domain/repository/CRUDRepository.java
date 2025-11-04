@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.domain.repository;
+package es.etg.daw.dawes.java.rest.restfull.common.domain.repository;
 
 import java.util.List;
 import java.util.Optional;

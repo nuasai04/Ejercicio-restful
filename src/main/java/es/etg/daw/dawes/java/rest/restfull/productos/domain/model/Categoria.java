@@ -9,14 +9,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class Producto {
-	
-	// Atributos
-	private ProductoId id;
-	private String nombre;
-	private double precio;
-	private LocalDateTime createdAt;
-
-	//Atributo Foreignkey (FK)
-	private CategoriaId categoriaId;
+public class Categoria {
+    private CategoriaId id;
+    private String nombre;
+    private LocalDateTime createdAt;
 }

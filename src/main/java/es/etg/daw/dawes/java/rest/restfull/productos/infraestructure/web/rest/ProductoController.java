@@ -21,13 +21,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.CreateProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.EditProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.CreateProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.DeleteProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.EditProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.FindProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.CreateProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.EditProductoCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.CreateProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.DeleteProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.EditProductoService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.FindProductoService;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.ProductoResponse;
@@ -57,7 +58,7 @@ public class ProductoController {
 
     @GetMapping 
     public List<ProductoResponse> allProductos() {
-        if(true) throw new NullPointerException();
+        //if(true) throw new NullPointerException();
         if ("1.0".equals(apiVersion)) {
             return findProductoService.findAll()
                     .stream() // Convierte la lista en un flujo
@@ -71,13 +72,13 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProducto(@PathVariable int id) {
+    public ResponseEntity<?> deleteProducto(@PathVariable ProductoId id) {
         deleteProductoService.delete(id);
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
     @PutMapping("/{id}")
-    public ProductoResponse editProducto(@PathVariable int id, @RequestBody ProductoRequest productoRequest) {
+    public ProductoResponse editProducto(@PathVariable ProductoId id, @RequestBody ProductoRequest productoRequest) {
         EditProductoCommand comando = ProductoMapper.toCommand(id, productoRequest);
         Producto producto = editProductoService.update(comando);
         return ProductoMapper.toResponse(producto); // Respuesta
