@@ -10,7 +10,7 @@ public class CategoriaNotFoundException extends EntityNotFoundException {
         super(ENTIDAD);
     }
 
-    public CategoriaNotFoundException(String entity, int id) {
+    public CategoriaNotFoundException(int id) {
         super(ENTIDAD, id);
     }
 
