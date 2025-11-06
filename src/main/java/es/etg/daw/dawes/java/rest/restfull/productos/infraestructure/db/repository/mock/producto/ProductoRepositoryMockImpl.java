@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.producto;
 
 import java.util.ArrayList;
 import java.util.Collection;
