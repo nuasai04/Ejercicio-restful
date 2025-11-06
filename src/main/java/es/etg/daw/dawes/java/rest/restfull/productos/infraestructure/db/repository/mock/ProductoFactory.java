@@ -4,21 +4,20 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 
 public class ProductoFactory {
     
-    //EN LIGAR DE INTEGRER PRODUCTOID????
     public static final Map<ProductoId, Producto> getDemoData(){
-        Map<Integer, Producto> datos = new LinkedHashMap<>();
+        Map<ProductoId, Producto> datos = new LinkedHashMap<>();
 
-        ProductoId id; 
-        datos.put(1, new Producto(1, "Nombre producto 1", 1.01, LocalDateTime.now()));
-        datos.put(2, new Producto(2, "Nombre producto 2", 1.02, LocalDateTime.now()));
-        datos.put(3, new Producto(3, "Nombre producto 3", 1.03, LocalDateTime.now()));
-        datos.put(4, new Producto(4, "Nombre producto 4", 1.04, LocalDateTime.now()));
-        
+        datos.put(new ProductoId(1), new Producto(new ProductoId(1), "Nombre producto 1", 1.01, LocalDateTime.now(), new CategoriaId(1)));
+        datos.put(new ProductoId(2), new Producto(new ProductoId(2), "Nombre producto 2", 1.02, LocalDateTime.now(), new CategoriaId(1)));
+        datos.put(new ProductoId(3), new Producto(new ProductoId(3), "Nombre producto 3", 1.03, LocalDateTime.now(), new CategoriaId(2)));
+        datos.put(new ProductoId(4), new Producto(new ProductoId(4), "Nombre producto 4", 1.04, LocalDateTime.now(), new CategoriaId(2)));
+
         return datos;
     }
 }

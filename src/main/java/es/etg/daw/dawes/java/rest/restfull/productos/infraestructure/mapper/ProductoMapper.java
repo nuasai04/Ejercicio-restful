@@ -14,14 +14,15 @@ public class ProductoMapper {
 	}
 
 	public static ProductoResponse toResponse(Producto producto){
-		return new ProductoResponse(producto.getId(),
+		return new ProductoResponse(producto.getId().getValue(),
 									producto.getNombre(),
 									producto.getPrecio(),
-									producto.getCreatedAt());
+									producto.getCreatedAt(),
+									producto.getCategoriaId().getValue());
 	}
 
-	public static EditProductoCommand toCommand(ProductoId id, ProductoRequest productoRequest){
-		return new EditProductoCommand(id, productoRequest.nombre(), productoRequest.precio());
+	public static EditProductoCommand toCommand(int id, ProductoRequest productoRequest){
+		return new EditProductoCommand(new ProductoId(id), productoRequest.nombre(), productoRequest.precio());
 	}
 	
 }

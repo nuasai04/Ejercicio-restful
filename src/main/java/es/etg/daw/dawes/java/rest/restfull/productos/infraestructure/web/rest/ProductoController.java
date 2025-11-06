@@ -72,13 +72,13 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProducto(@PathVariable ProductoId id) {
-        deleteProductoService.delete(id);
+    public ResponseEntity<?> deleteProducto(@PathVariable int id) {
+        deleteProductoService.delete(new ProductoId(id));
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
     @PutMapping("/{id}")
-    public ProductoResponse editProducto(@PathVariable ProductoId id, @RequestBody ProductoRequest productoRequest) {
+    public ProductoResponse editProducto(@PathVariable int id, @RequestBody ProductoRequest productoRequest) {
         EditProductoCommand comando = ProductoMapper.toCommand(id, productoRequest);
         Producto producto = editProductoService.update(comando);
         return ProductoMapper.toResponse(producto); // Respuesta
