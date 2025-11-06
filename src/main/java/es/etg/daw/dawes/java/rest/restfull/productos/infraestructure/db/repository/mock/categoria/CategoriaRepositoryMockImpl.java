@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.CategoriaRepository;
 
+@Repository
 public class CategoriaRepositoryMockImpl implements CategoriaRepository {
 
     private final Map<CategoriaId, Categoria> categorias = CategoriaFactory.getDemoData();
