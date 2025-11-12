@@ -21,35 +21,35 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.CreateProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.command.producto.EditProductoCommand;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.CreateProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.DeleteProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.EditProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.application.service.producto.FindProductoService;
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
-import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.CreateCategoriaCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.command.categoria.EditCategoriaCommand;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.categoria.CreateCategoriaService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.categoria.DeleteCategoriaService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.categoria.EditCategoriaService;
+import es.etg.daw.dawes.java.rest.restfull.productos.application.service.categoria.FindCategoriaService;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Categoria;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.CategoriaId;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.CategoriaMapper;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaRequest;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.categoria.CategoriaResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/categorias")
 @RequiredArgsConstructor
-public class ProductoController {
+public class CategoriaController {
 
-    private final CreateProductoService createProductoService;
-    private final FindProductoService findProductoService;
-    private final DeleteProductoService deleteProductoService;
-    private final EditProductoService editProductoService;
+    private final CreateCategoriaService createCategoriaService;
+    private final FindCategoriaService findCategoriaService;
+    private final DeleteCategoriaService deleteCategoriaService;
+    private final EditCategoriaService editCategoriaService;
 
     @PostMapping // Método Post
-    public ResponseEntity<ProductoResponse> createProducto(@Valid @RequestBody ProductoRequest productoRequest) {
-        CreateProductoCommand comando = ProductoMapper.toCommand(productoRequest);
-        Producto producto = createProductoService.createProducto(comando);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProductoMapper.toResponse(producto)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
+    public ResponseEntity<CategoriaResponse> createProducto(@Valid @RequestBody CategoriaRequest categoriaRequest) {
+        CreateCategoriaCommand comando = CategoriaMapper.toCommand(categoriaRequest);
+        Categoria categoria = createCategoriaService.createCategoria(comando);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CategoriaMapper.toResponse(categoria)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
     }
 
     // Recogemos la versión el properties
@@ -57,12 +57,12 @@ public class ProductoController {
     private String apiVersion;
 
     @GetMapping 
-    public List<ProductoResponse> allProductos() {
+    public List<CategoriaResponse> allProductos() {
         //if(true) throw new NullPointerException();
         if ("1.0".equals(apiVersion)) {
-            return findProductoService.findAll()
+            return findCategoriaService.findAll()
                     .stream() // Convierte la lista en un flujo
-                    .map(ProductoMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un
+                    .map(CategoriaMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un
                                                      // objeto de Respuesta (ProductoResponse)
                     .toList(); // Lo devuelve como una lista.
         } else {
@@ -72,16 +72,16 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProducto(@PathVariable int id) {
-        deleteProductoService.delete(new ProductoId(id));
+    public ResponseEntity<?> deleteCategoria(@PathVariable int id) {
+        deleteCategoriaService.delete(new CategoriaId(id));
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
     @PutMapping("/{id}")
-    public ProductoResponse editProducto(@PathVariable int id, @RequestBody ProductoRequest productoRequest) {
-        EditProductoCommand comando = ProductoMapper.toCommand(id, productoRequest);
-        Producto producto = editProductoService.update(comando);
-        return ProductoMapper.toResponse(producto); // Respuesta
+    public CategoriaResponse editCategoria(@PathVariable int id, @RequestBody CategoriaRequest categoriaRequest) {
+        EditCategoriaCommand comando = CategoriaMapper.toCommand(id, categoriaRequest);
+        Categoria categoria = editCategoriaService.update(comando);
+        return CategoriaMapper.toResponse(categoria); // Respuesta
     }
 
     // Método que captura los errores y devuelve un mapa con el campo que no cumple

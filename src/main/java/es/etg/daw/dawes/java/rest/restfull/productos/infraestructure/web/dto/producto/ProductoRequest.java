@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.validation.NombradoProducto;
 import jakarta.validation.constraints.Max;

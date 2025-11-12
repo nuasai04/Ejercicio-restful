@@ -1,6 +1,5 @@
 package es.etg.daw.dawes.java.rest.restfull.common.domain.error;
 
-import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 
 public class EntityNotFoundException extends RuntimeException{
 
