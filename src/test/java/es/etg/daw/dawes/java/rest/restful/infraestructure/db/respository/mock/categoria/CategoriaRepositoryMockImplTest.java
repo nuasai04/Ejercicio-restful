@@ -28,8 +28,8 @@ public class CategoriaRepositoryMockImplTest {
         Categoria c = repository.save(categoria);
 
         assertAll(
-                () -> assertNotNull(c), // el producto no es nulo
-                () -> assertNotNull(c.getId()), // el producto creado tiene id
+                () -> assertNotNull(c), // categoria no es nulo
+                () -> assertNotNull(c.getId()), // categoria creado tiene id
                 () -> assertNotNull(repository.getById(c.getId())) // si lo busco lo debo recuperar *opcional
         );
 
