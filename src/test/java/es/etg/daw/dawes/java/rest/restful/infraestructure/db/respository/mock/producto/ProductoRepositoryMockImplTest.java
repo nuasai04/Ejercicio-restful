@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
+import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.producto.ProductoFactory;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.repository.mock.producto.ProductoRepositoryMockImpl;
@@ -42,6 +43,29 @@ public class ProductoRepositoryMockImplTest {
         assertAll(
                 () -> assertNotNull(productos),
                 () -> assertEquals(ProductoFactory.getDemoData().size(), productos.size()));
+    }
+
+    @Test
+    void getById() {
+        int idEsperado = 1;
+        var producto = repository.getById(new ProductoId(idEsperado));
+
+        assertAll(
+                () -> assertNotNull(producto),
+                () -> assertEquals(idEsperado, producto.get().getId().getValue()));
+
+    }
+
+    @Test
+    void deleteById() {
+        int idEsperado = 1;
+        repository.deteteById(new ProductoId(idEsperado));
+        var producto = repository.getById(new ProductoId(idEsperado));
+
+        assertAll(
+                () -> assertNotNull(producto),
+                () -> assertEquals(false, producto.isPresent()));
+
     }
 
 }
