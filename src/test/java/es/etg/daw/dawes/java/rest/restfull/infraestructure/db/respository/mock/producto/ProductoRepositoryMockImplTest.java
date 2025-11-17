@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restful.infraestructure.db.respository.mock.producto;
+package es.etg.daw.dawes.java.rest.restfull.infraestructure.db.respository.mock.producto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
