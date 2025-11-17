@@ -105,8 +105,8 @@ public class ProductoControllerIT {
                         .content(jsonProductoRequest.write(req).getJson())
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
-        //System.out.println(">>> RESPUESTA JSON DEL POST:");
-        //System.out.println(response.getContentAsString());
+        System.out.println(">>> RESPUESTA JSON DEL POST:");
+        System.out.println(response.getContentAsString());
 
         // Gestiono la respuesta
         ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
