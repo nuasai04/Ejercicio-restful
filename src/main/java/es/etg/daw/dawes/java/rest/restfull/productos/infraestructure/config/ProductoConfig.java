@@ -16,17 +16,24 @@ import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.product
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.producto.EditProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.application.usecase.producto.FindProductoUseCase;
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.repository.ProductoRepository;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository.producto.ProductoEntityJpaRepository;
+import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository.producto.ProductoJpaRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class ProductoConfig {
 
-    private final ProductoRepository productoRepository;
+    private final ProductoEntityJpaRepository productoRepository;
+
+    @Bean 
+    public ProductoRepository productoRepository(){
+        return new ProductoJpaRepositoryImpl(productoRepository);
+    }
 
     @Bean
     public CreateProductoUseCase createProductoUseCase() {
-        return new CreateProductoUseCase(productoRepository);
+        return new CreateProductoUseCase(productoRepository());
     }
 
     @Bean
@@ -36,7 +43,7 @@ public class ProductoConfig {
 
     @Bean
     public FindProductoUseCase findProductoUseCase() {
-        return new FindProductoUseCase(productoRepository);
+        return new FindProductoUseCase(productoRepository());
     }
 
     @Bean
@@ -46,7 +53,7 @@ public class ProductoConfig {
 
     @Bean
     public DeleteProductoUseCase deleteProductoUseCase() {
-        return new DeleteProductoUseCase(productoRepository);
+        return new DeleteProductoUseCase(productoRepository());
     }
 
     @Bean
@@ -56,7 +63,7 @@ public class ProductoConfig {
 
     @Bean
     public EditProductoUseCase editProductoUseCase() {
-        return new EditProductoUseCase(productoRepository);
+        return new EditProductoUseCase(productoRepository());
     }
 
     @Bean
