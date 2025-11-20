@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository;
+package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository.producto;
 
 import java.util.List;
 import java.util.Optional;
