@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
 @Table(name = "CATEGORIAS")
 public class CategoriaEntity {
 

@@ -1,6 +1,8 @@
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
 @Table(name = "PRODUCTOS")
 public class ProductoEntity {
 
