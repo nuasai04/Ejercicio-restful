@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Nuhaila Assaid Aabdenour 
+ */
+
 package es.etg.daw.dawes.java.rest.restfull.common.domain.error;
 
 

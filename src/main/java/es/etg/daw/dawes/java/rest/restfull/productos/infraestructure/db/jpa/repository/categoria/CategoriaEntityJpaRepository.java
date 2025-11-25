@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Nuhaila Assaid Aabdenour 
+ */
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.db.jpa.repository.categoria;
 
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Nuhaila Assaid Aabdenour 
+ */
 package es.etg.daw.dawes.java.rest.restfull.infraestructure.web.rest;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -36,166 +40,168 @@ import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.pro
 // Indicamos que es un test de Spring
 @AutoConfigureJsonTesters
 
-@SpringBootTest //(classes = es.etg.daw.dawes.java.rest.restfull.RestfulApplication.class) LO PUSE PARA QUE FUNCIONASEN LAS PRUEBAS PERO AHORA FUNCIONAN SIN ELLO.
+@SpringBootTest // (classes = es.etg.daw.dawes.java.rest.restfull.RestfulApplication.class) LO
+                // PUSE PARA QUE FUNCIONASEN LAS PRUEBAS PERO AHORA FUNCIONAN SIN ELLO.
 // Configuramos el cliente MVC
 @AutoConfigureMockMvc
-// Limpiamos el contexto antes de cada test (queremos que todas las pruebas se ejecuten sin datos de otras)
+// Limpiamos el contexto antes de cada test (queremos que todas las pruebas se
+// ejecuten sin datos de otras)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ProductoControllerIT {
 
-    // Constante para las rutas
-    public static String ENDPOINT = "/productos";
+        // Constante para las rutas
+        public static String ENDPOINT = "/productos";
 
-    // Json
-    private ObjectMapper mapper = new ObjectMapper();
+        // Json
+        private ObjectMapper mapper = new ObjectMapper();
 
-    // Cargamos el cliente MVC
-    @Autowired
-    MockMvc mockMvc;
+        // Cargamos el cliente MVC
+        @Autowired
+        MockMvc mockMvc;
 
-    // Para metodos que tienen una request
-    @Autowired
-    private JacksonTester<ProductoRequest> jsonProductoRequest;
+        // Para metodos que tienen una request
+        @Autowired
+        private JacksonTester<ProductoRequest> jsonProductoRequest;
 
-    // Para métodos que devuelve una respuesta
-    @Autowired
-    private JacksonTester<ProductoResponse> jsonProductoResponse;
+        // Para métodos que devuelve una respuesta
+        @Autowired
+        private JacksonTester<ProductoResponse> jsonProductoResponse;
 
-    @BeforeEach
-    public void setUp() {
-        mapper = new ObjectMapper();
-        // Necesitamos registrar este módulo al usar LocalDate en nuestros beans
-        // para que funcione bien el mapper de json
-        mapper.registerModule(new JavaTimeModule());
-    }
+        @BeforeEach
+        public void setUp() {
+                mapper = new ObjectMapper();
+                // Necesitamos registrar este módulo al usar LocalDate en nuestros beans
+                // para que funcione bien el mapper de json
+                mapper.registerModule(new JavaTimeModule());
+        }
 
-    @Test
-    @Order(1) // Quiero que se ejecute la primera
-    public void When_Get_AllProductos_Expect_Lista() throws Exception {
-        // Productos esperados
-        int numProductos = ProductoFactory.getDemoData().values().size();
+        @Test
+        @Order(1) // Quiero que se ejecute la primera
+        public void When_Get_AllProductos_Expect_Lista() throws Exception {
+                // Productos esperados
+                int numProductos = ProductoFactory.getDemoData().values().size();
 
-        // Realizo la petición
-        MockHttpServletResponse response = mockMvc.perform(
-                // método get de http
-                get(ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+                // Realizo la petición
+                MockHttpServletResponse response = mockMvc.perform(
+                                // método get de http
+                                get(ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
-        // Gestiono la respuesta
-        List<ProductoResponse> res = mapper.readValue(response.getContentAsString(),
-                mapper.getTypeFactory().constructCollectionType(List.class, ProductoResponse.class));
+                // Gestiono la respuesta
+                List<ProductoResponse> res = mapper.readValue(response.getContentAsString(),
+                                mapper.getTypeFactory().constructCollectionType(List.class, ProductoResponse.class));
 
-        // Evaluo la salida
-        assertAll(
-                () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), // Ha ido bien
-                () -> assertTrue(res.size() == numProductos));
-    }
+                // Evaluo la salida
+                assertAll(
+                                () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), // Ha ido bien
+                                () -> assertTrue(res.size() == numProductos));
+        }
 
-    @Test
-    @Order(10)
-    public void When_Post_CreateProducto() throws Exception {
-        Producto nuevo = ProductoFactory.create();
+        @Test
+        @Order(10)
+        public void When_Post_CreateProducto() throws Exception {
+                Producto nuevo = ProductoFactory.create();
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+                ProductoRequest req = new ProductoRequest(nuevo);
 
-        // Realizo la petición POST
-        MockHttpServletResponse response = mockMvc.perform(
-                post(ENDPOINT)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        // Le paso el body
-                        .content(jsonProductoRequest.write(req).getJson())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
-        System.out.println(">>> RESPUESTA JSON DEL POST:");
-        System.out.println(response.getContentAsString());
+                // Realizo la petición POST
+                MockHttpServletResponse response = mockMvc.perform(
+                                post(ENDPOINT)
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                // Le paso el body
+                                                .content(jsonProductoRequest.write(req).getJson())
+                                                .accept(MediaType.APPLICATION_JSON))
+                                .andReturn().getResponse();
+                System.out.println(">>> RESPUESTA JSON DEL POST:");
+                System.out.println(response.getContentAsString());
 
-        // Gestiono la respuesta
-        ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
+                // Gestiono la respuesta
+                ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
 
-        // Evaluo la salida
-        assertAll(
-                () -> assertEquals(response.getStatus(), HttpStatus.CREATED.value()), // Ha ido bien
-                () -> assertEquals(res.nombre(), nuevo.getNombre()),
-                () -> assertEquals(res.precio(), nuevo.getPrecio()),
-                () -> assertEquals(res.categoria(), nuevo.getCategoriaId().getValue()),
-                () -> assertTrue(res.id() > 0));
-    }
+                // Evaluo la salida
+                assertAll(
+                                () -> assertEquals(response.getStatus(), HttpStatus.CREATED.value()), // Ha ido bien
+                                () -> assertEquals(res.nombre(), nuevo.getNombre()),
+                                () -> assertEquals(res.precio(), nuevo.getPrecio()),
+                                () -> assertEquals(res.categoria(), nuevo.getCategoriaId().getValue()),
+                                () -> assertTrue(res.id() > 0));
+        }
 
-    /**
-     * Si se crea un producto sin nombre debe dar MethodArgumentNotValidException
-     * la respuesta debería ser HttpStatus.BAD_REQUEST
-     */
-    @Test
-    @Order(11)
-    public void Error_ValidationError_When_CreateProducto_EmptyNombre() throws Exception {
-        Producto nuevo = ProductoFactory.create();
-        nuevo.setNombre(null);
+        /**
+         * Si se crea un producto sin nombre debe dar MethodArgumentNotValidException
+         * la respuesta debería ser HttpStatus.BAD_REQUEST
+         */
+        @Test
+        @Order(11)
+        public void Error_ValidationError_When_CreateProducto_EmptyNombre() throws Exception {
+                Producto nuevo = ProductoFactory.create();
+                nuevo.setNombre(null);
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+                ProductoRequest req = new ProductoRequest(nuevo);
 
-        // Realizo la petición POST
-        MockHttpServletResponse response = mockMvc.perform(
-                post(ENDPOINT)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        // Le paso el body
-                        .content(jsonProductoRequest.write(req).getJson())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+                // Realizo la petición POST
+                MockHttpServletResponse response = mockMvc.perform(
+                                post(ENDPOINT)
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                // Le paso el body
+                                                .content(jsonProductoRequest.write(req).getJson())
+                                                .accept(MediaType.APPLICATION_JSON))
+                                .andReturn().getResponse();
 
-        // Comprobamos
-        assertAll(
-                () -> assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus()));
-    }
+                // Comprobamos
+                assertAll(
+                                () -> assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus()));
+        }
 
-    @Test
-    @Order(20)
-    public void When_Put_EditProducto() throws Exception {
-        Producto nuevo = ProductoFactory.create();
-        nuevo.setId(new ProductoId(1));
+        @Test
+        @Order(20)
+        public void When_Put_EditProducto() throws Exception {
+                Producto nuevo = ProductoFactory.create();
+                nuevo.setId(new ProductoId(1));
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+                ProductoRequest req = new ProductoRequest(nuevo);
 
-        // Realizo la petición POST
-        MockHttpServletResponse response = mockMvc.perform(
-                // productos/{id} -> productos/1
-                put(ENDPOINT + "/" + nuevo.getId().getValue())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        // Le paso el body
-                        .content(jsonProductoRequest.write(req).getJson())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+                // Realizo la petición POST
+                MockHttpServletResponse response = mockMvc.perform(
+                                // productos/{id} -> productos/1
+                                put(ENDPOINT + "/" + nuevo.getId().getValue())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                // Le paso el body
+                                                .content(jsonProductoRequest.write(req).getJson())
+                                                .accept(MediaType.APPLICATION_JSON))
+                                .andReturn().getResponse();
 
-        // Gestiono la respuesta
-        ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
+                // Gestiono la respuesta
+                ProductoResponse res = mapper.readValue(response.getContentAsString(), ProductoResponse.class);
 
-        // Evaluo la salida
-        assertAll(
-                () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), // Ha ido bien
-                () -> assertEquals(res.nombre(), nuevo.getNombre()),
-                () -> assertEquals(res.precio(), nuevo.getPrecio()),
-                () -> assertEquals(res.categoria(), nuevo.getCategoriaId().getValue()),
-                () -> assertEquals(res.id(), nuevo.getId().getValue()));
-    }
+                // Evaluo la salida
+                assertAll(
+                                () -> assertEquals(response.getStatus(), HttpStatus.OK.value()), // Ha ido bien
+                                () -> assertEquals(res.nombre(), nuevo.getNombre()),
+                                () -> assertEquals(res.precio(), nuevo.getPrecio()),
+                                () -> assertEquals(res.categoria(), nuevo.getCategoriaId().getValue()),
+                                () -> assertEquals(res.id(), nuevo.getId().getValue()));
+        }
 
-    @Test
-    @Order(30)
-    public void When_Delete_DeleteProducto() throws Exception {
-        Producto nuevo = ProductoFactory.create();
-        nuevo.setId(new ProductoId(1));
+        @Test
+        @Order(30)
+        public void When_Delete_DeleteProducto() throws Exception {
+                Producto nuevo = ProductoFactory.create();
+                nuevo.setId(new ProductoId(1));
 
-        ProductoRequest req = new ProductoRequest(nuevo);
+                ProductoRequest req = new ProductoRequest(nuevo);
 
-        // Realizo la petición POST
-        MockHttpServletResponse response = mockMvc.perform(
-                // productos/{id} -> productos/1
-                delete(ENDPOINT + "/" + nuevo.getId().getValue())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        // Le paso el body
-                        .content(jsonProductoRequest.write(req).getJson())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
+                // Realizo la petición POST
+                MockHttpServletResponse response = mockMvc.perform(
+                                // productos/{id} -> productos/1
+                                delete(ENDPOINT + "/" + nuevo.getId().getValue())
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                // Le paso el body
+                                                .content(jsonProductoRequest.write(req).getJson())
+                                                .accept(MediaType.APPLICATION_JSON))
+                                .andReturn().getResponse();
 
-        assertAll(
-                () -> assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value()) // Ha ido bien
-        );
-    }
+                assertAll(
+                                () -> assertEquals(response.getStatus(), HttpStatus.NO_CONTENT.value()) // Ha ido bien
+                );
+        }
 }

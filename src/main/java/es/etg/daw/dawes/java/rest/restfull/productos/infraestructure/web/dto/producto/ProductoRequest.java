@@ -1,3 +1,7 @@
+/**
+ * 
+ * @author Nuhaila Assaid Aabdenour 
+ */
 package es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto;
 
 import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.Producto;
