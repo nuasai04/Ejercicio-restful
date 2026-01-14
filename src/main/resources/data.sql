@@ -30,3 +30,7 @@ INSERT INTO PRODUCTOS (nombre, descripcion, precio, peso, altura, anchura, profu
 ('Impresora Multifunción Láser', 'Imprime, escanea y copia en blanco y negro.', 189.00, 8.500, 0.30, 0.40, 0.35, NOW(), 5), -- Oficina y Papelería
 ('Set de Bolígrafos de Gel', '12 colores vibrantes, secado rápido.', 12.00, 0.080, 0.15, 0.05, 0.02, NOW(), 5), -- Oficina y Papelería
 ('Archivador de Palanca', 'Tamaño A4, capacidad para 500 hojas.', 9.75, 0.400, 0.32, 0.28, 0.08, NOW(), 5); -- Oficina y Papelería
+
+INSERT INTO USUARIOS (id, firstname, lastname, email, password, role ) VALUES 
+(1,'user', 'user', 'user@a.com', '$2a$12$PB6GwcJCu44g/T895VObduyyMGsX.Rl/QN0kU/IY0l9HOPokGJBpe', 'USER'),
+(2,'admin', 'admin', 'admin@a.com', '$2a$12$crH/Tuxn/3in7inhgLzoiOTfaXm2sLQy5alm0pwlBXu2z./MzwTMW', 'ADMIN');
