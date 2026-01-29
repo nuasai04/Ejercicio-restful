@@ -10,7 +10,7 @@
     </parent>
     <groupId>es.etg.daw.dawes.java.rest</groupId>
     <artifactId>restful</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>restful</name>
     <description>Ejemplo de restful</description>
     <url/>
