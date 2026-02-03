@@ -36,12 +36,17 @@ import es.etg.daw.dawes.java.rest.restfull.productos.domain.model.ProductoId;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.mapper.ProductoMapper;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoRequest;
 import es.etg.daw.dawes.java.rest.restfull.productos.infraestructure.web.dto.producto.ProductoResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/productos")
 @RequiredArgsConstructor
+@Tag(name = "Productos", description = "Operaciones relacionadas con la gestión de productos")
 public class ProductoController {
 
     private final CreateProductoService createProductoService;
@@ -60,9 +65,15 @@ public class ProductoController {
     @Value("${api.version}")
     private String apiVersion;
 
-    @GetMapping 
+    @Operation(summary = "Obtiene el listado de productos", description = "Busca en la base de datos todos los productos y sus detalles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listado de productos generado"),
+            @ApiResponse(responseCode = "404", description = "No hay productos en la base de datos")
+    })
+
+    @GetMapping
     public List<ProductoResponse> allProductos() {
-        //if(true) throw new NullPointerException();
+        // if(true) throw new NullPointerException();
         if ("1.0".equals(apiVersion)) {
             return findProductoService.findAll()
                     .stream() // Convierte la lista en un flujo
