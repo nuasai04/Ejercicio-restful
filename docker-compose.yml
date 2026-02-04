@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mi-api-rest:
-    image: nuhaila/restful:v1
+    image: nuhaila/restful:v2
     container_name: restful-container
     ports:
       - "8080:8080"
